@@ -27,6 +27,13 @@ class ContactForm extends Component {
 
   render() {
     const { name, number } = this.state;
+    const validation = {
+      nameValidationMessage:
+        'Name may contain only letters, apostrophe, dash and spaces.' +
+        "For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
+      numberValidationMessage:
+        'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
+    };
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -35,6 +42,8 @@ class ContactForm extends Component {
           <Input
             type="text"
             name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title={validation.nameValidationMessage}
             value={name}
             onChange={this.handleChange}
             required
@@ -45,6 +54,8 @@ class ContactForm extends Component {
           <Input
             type="tel"
             name="number"
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title={validation.numberValidationMessage}
             value={number}
             onChange={this.handleChange}
             required
